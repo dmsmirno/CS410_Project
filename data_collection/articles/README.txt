@@ -1,0 +1,1 @@
+Contains stock ticker files with associated articles inside

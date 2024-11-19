@@ -1,0 +1,1 @@
+Contains technical stock data for each ticker.
