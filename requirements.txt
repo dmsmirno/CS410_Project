@@ -20,3 +20,4 @@ torch
 python-dotenv
 yfinance
 pandas_ta
+autogen-agentchat==0.4.0dev1
