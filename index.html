@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trend Viewer</title>
+</head>
+<body>
+    <h1>Stock Trend Viewer</h1>
+    <form id="stockForm">
+        <label for="ticker">Enter Stock Ticker:</label>
+        <input type="text" id="ticker" name="ticker" required>
+        <button type="submit">Get Stock Trend</button>
+    </form>
+    <div id="result">
+        <h2>Stock Trend:</h2>
+        <img id="stockImage" src="" alt="Stock Trend will appear here" style="display: none; max-width: 100%; height: auto;">
+    </div>
+
+    <script>
+        document.getElementById('stockForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const ticker = document.getElementById('ticker').value;
+            const response = await fetch('/get_stock_trend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ticker }),
+            });
+
+            if (response.ok) {
+                const imageURL = await response.json();
+                const stockImage = document.getElementById('stockImage');
+                stockImage.src = imageURL.url; // Set the returned image URL
+                stockImage.style.display = 'block';
+            } else {
+                alert('Failed to fetch stock trend. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
