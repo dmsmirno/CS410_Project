@@ -97,19 +97,20 @@ async def get_Chat_response(text):
     stock_analysis_tool = FunctionTool(analyze_stock, description="Analyze stock data and generate a plot")
     stock_analysis_agent = ToolUseAssistantAgent(
         name="Stock_Analysis_Agent",
-        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="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"),
+        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your API key"),
         registered_tools=[stock_analysis_tool],
         description="Analyze stock data and generate a plot",
         system_message="You are a helpful AI assistant. Solve tasks using your tools.",
     )
     report_agent = CodingAssistantAgent(
         name="Report_Agent",
-        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="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"),
+        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your API key"),
         description="Generate a report based on the search and stock analysis results",
         system_message="You are a helpful assistant that can generate a comprehensive report on a given topic based on search and stock analysis. Don't need to add disclaimer When you done with generating the report, reply with TERMINATE.",
     )
     team = RoundRobinGroupChat([stock_analysis_agent, report_agent])
     result = await team.run(text, termination_condition=StopMessageTermination())
+    print(type(result))
     return str(result)
 
 # @app.route('/get_stock_trend', methods=['POST'])
