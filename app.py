@@ -97,21 +97,27 @@ async def get_Chat_response(text):
     stock_analysis_tool = FunctionTool(analyze_stock, description="Analyze stock data and generate a plot")
     stock_analysis_agent = ToolUseAssistantAgent(
         name="Stock_Analysis_Agent",
-        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your API key"),
+        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your Api Key"),
         registered_tools=[stock_analysis_tool],
         description="Analyze stock data and generate a plot",
         system_message="You are a helpful AI assistant. Solve tasks using your tools.",
     )
     report_agent = CodingAssistantAgent(
         name="Report_Agent",
-        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your API key"),
+        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your Api key"),
         description="Generate a report based on the search and stock analysis results",
         system_message="You are a helpful assistant that can generate a comprehensive report on a given topic based on search and stock analysis. Don't need to add disclaimer When you done with generating the report, reply with TERMINATE.",
     )
     team = RoundRobinGroupChat([stock_analysis_agent, report_agent])
     result = await team.run(text, termination_condition=StopMessageTermination())
-    print(type(result))
-    return str(result)
+    # print(result.messages.TextMessage.content)
+    ans = ""
+    for TextMessage in result.messages:
+        # print(type(message))
+        ans += TextMessage.content
+        ans += '\n'
+    # print(ans)
+    return ans
 
 # @app.route('/get_stock_trend', methods=['POST'])
 # def get_stock_trend():
