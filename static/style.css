@@ -154,6 +154,15 @@ border-radius: 0 0 15px 15px !important;
 	padding: 10px;
 	position: relative;
 }
+.msg_image {
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 10px;
+	border-radius: 25px;
+	padding: 10px;
+	position: relative;
+	width: 576px;
+}
 .msg_cotainer_send{
 	margin-top: auto;
 	margin-bottom: auto;

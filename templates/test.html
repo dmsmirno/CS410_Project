@@ -112,7 +112,7 @@
             url: "/get",
           }).done(function (data) {
 
-            var formattedData = data.replace(/\n/g, "<br>");
+            var formattedData = data.text.replace(/\n/g, "<br>");
             var botHtml =
               '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' +
               formattedData +
@@ -120,6 +120,17 @@
               str_time +
               "</span></div></div>";
             $("#messageFormeight").append($.parseHTML(botHtml));
+            if (data.graph_url) {
+              var graphHtml = `
+              <div class="d-flex justify-content-start mb-4">
+              <div class="img_cont_msg"><img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" class="rounded-circle user_img_msg"></div>
+              <div class="msg_cotainer">
+                <div>
+                    <img src="${data.graph_url}" alt="Graph" class="msg_image">
+                </div>
+              </div></div>`;
+              $("#messageFormeight").append($.parseHTML(graphHtml));
+            }
             scrollToBottom();
           });
           event.preventDefault();
