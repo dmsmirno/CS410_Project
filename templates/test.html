@@ -28,12 +28,20 @@
       type="text/css"
       href="./static/style.css"
     />
+    <style>
+      .card {
+        min-height: 85vh;
+        margin-top: 8pt;
+      }
+    </style>
   </head>
 
   <body>
-    <div class="container-fluid h-100">
-      <div class="row justify-content-center h-100">
-        <div class="col-md-8 col-xl-6 chat">
+    
+    <div class="container-fluid">
+     
+        <!-- Adjusted column classes for wider width -->
+       
           <div class="card">
             <div class="card-header msg_head">
               <div class="d-flex bd-highlight">
@@ -46,7 +54,7 @@
                 </div>
                 <div class="user_info">
                   <span>ChatBot</span>
-                  <p>Ask me anything!</p>
+                  <p>Ask me financial questions in the format of "Financial Report on 'Ticker'"</p>
                 </div>
               </div>
             </div>
@@ -74,8 +82,6 @@
               </form>
             </div>
           </div>
-        </div>
-      </div>
     </div>
 
     <script>
