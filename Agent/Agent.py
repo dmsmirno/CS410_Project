@@ -1,9 +1,11 @@
 # import autogen
 import asyncio
+import os
 from autogen_agentchat.agents import CodingAssistantAgent, ToolUseAssistantAgent
 from autogen_agentchat.teams import RoundRobinGroupChat, StopMessageTermination
 from autogen_core.components.models import OpenAIChatCompletionClient
 from autogen_core.components.tools import FunctionTool
+from dotenv import load_dotenv
 
 # def google_search(query: str, num_results: int = 2, max_chars: int = 500) -> list:  # type: ignore[type-arg]
 #     import os
@@ -59,6 +61,10 @@ from autogen_core.components.tools import FunctionTool
 #     return enriched_results
 
 
+load_dotenv()
+
+
+GPT_KEY = os.getenv('GPT_KEY')
 
 async def main():
     def analyze_stock(ticker: str) -> dict:  # type: ignore[type-arg]
@@ -157,14 +163,14 @@ async def main():
     stock_analysis_tool = FunctionTool(analyze_stock, description="Analyze stock data and generate a plot")
     stock_analysis_agent = ToolUseAssistantAgent(
         name="Stock_Analysis_Agent",
-        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your Api"),
+        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key=GPT_KEY),
         registered_tools=[stock_analysis_tool],
         description="Analyze stock data and generate a plot",
         system_message="You are a helpful AI assistant. Solve tasks using your tools.",
     )
     report_agent = CodingAssistantAgent(
         name="Report_Agent",
-        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key="Your Api"),
+        model_client=OpenAIChatCompletionClient(model="gpt-4o-mini", api_key=GPT_KEY),
         description="Generate a report based on the search and stock analysis results",
         system_message="You are a helpful assistant that can generate a comprehensive report on a given topic based on search and stock analysis. When you done with generating the report, reply with TERMINATE.",
     )
