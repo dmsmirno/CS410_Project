@@ -15,7 +15,7 @@ load_dotenv()
 nltk.download('vader_lexicon')
 sid = SentimentIntensityAnalyzer()
 GNEWS_KEY = os.getenv('GNEWS_KEY')
-print(GNEWS_KEY + " IS THE KEY")
+
 
 # Define the ticker symbols for top stocks in different sectors
 tickerSymbols = ['TSLA', 'AAPL', 'AMZN']
